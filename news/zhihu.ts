@@ -2,13 +2,13 @@ import axios from "axios";
 import cheerio from "cheerio";
 
 // 知乎 新闻60s  API
-async function fetchNews() {
+async function fetchNews(): Promise<any> {
   try {
     let result = await axios.get(
       "https://www.zhihu.com/api/v4/columns/c_1261258401923026944/items"
     );
-    let all_list = [];
-    let news_list = [];
+    let all_list: any = [];
+    let news_list: any = [];
     let weiyu = "";
 
     let $ = cheerio.load(result.data.data[0].content);
@@ -24,9 +24,13 @@ async function fetchNews() {
         weiyu = $(element).text();
       }
     });
+    // console.log("news_list", news_list);
+    // console.log("all_list", all_list);
     return { weiyu, news_list, all_list };
   } catch (error) {
     console.log(error);
   }
 }
+
+// fetchNews();
 export default fetchNews;
