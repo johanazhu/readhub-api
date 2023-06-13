@@ -10,3 +10,5 @@ function mainTask(){...}
 
 origin string 可选
 "zhihu" 、 "163" 、"readhub" 切换源
+
+重新部署
