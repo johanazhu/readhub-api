@@ -3,14 +3,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.fetch163News = void 0;
 const axios_1 = __importDefault(require("axios"));
 const cheerio_1 = __importDefault(require("cheerio"));
 // 网易 365 天新闻 https://www.163.com/dy/media/T1603594732083.html
-async function fetchNews() {
+async function fetch163News() {
     try {
         let result = await axios_1.default.get("https://www.163.com/dy/media/T1603594732083.html");
         let news_list = [];
-        const final_list = [];
+        let all_list = [];
+        let weiyu = "";
         const $ = cheerio_1.default.load(result.data);
         const href = $("a.title").attr("href");
         // console.log(href);
@@ -29,16 +31,21 @@ async function fetchNews() {
                     if (!new_str) {
                         new_str = i.split(". ")[1];
                     }
+                    if (new_str.includes("微语")) {
+                        weiyu = new_str;
+                    }
                     if (new_str && !new_str.includes("微语")) {
                         news_list.push(new_str);
                     }
                 }
-                final_list.push(i);
+                all_list.push(i);
             }
         }
+        return { weiyu, news_list, all_list };
     }
     catch (error) {
         console.log(error);
     }
 }
-fetchNews();
+exports.fetch163News = fetch163News;
+// fetch163News();

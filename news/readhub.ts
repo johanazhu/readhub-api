@@ -2,7 +2,7 @@ import axios from "axios";
 import cheerio from "cheerio";
 
 // readhub https://readhub.cn/daily
-async function fetchNews() {
+export async function fetchReadhubNews() {
   try {
     let result = await axios.get("https://readhub.cn/daily");
     let news_list: any = [];
@@ -14,12 +14,11 @@ async function fetchNews() {
       // console.log(title);
       news_list.push(i + "、" + title);
     });
+    console.log("news_list", news_list);
     return news_list;
   } catch (error) {
     console.error(error);
   }
 }
 
-fetchNews();
-
-export default fetchNews;
+fetchReadhubNews();
