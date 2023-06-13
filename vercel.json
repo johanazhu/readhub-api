@@ -1,6 +1,5 @@
 {
   "build": {
-    "command": "npm install",
     "src": "api",
     "use": "@vercel/node"
   },
