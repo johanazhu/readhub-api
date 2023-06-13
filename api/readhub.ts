@@ -11,10 +11,10 @@ export default async function handler(
     code: 200,
     time: new Date().getTime(),
     data: {
-      title: "没有",
-      date: "没有",
+      title: "在这里，每天60秒读懂世界！",
+      date: new Date(),
       news: news_list,
-      weiyu: "你好",
+      weiyu: "【微语】万物之中 希望至美",
     },
     // all_data: all_list,
   });
