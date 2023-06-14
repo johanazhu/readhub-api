@@ -1,14 +1,11 @@
-定时任务使用的是 node-schedule,非常简单易用的一个 nodejs 库。
+# news API
 
-```javascript
-function crontab() {
-  schedule.scheduleJob(`00 00 18 * * *`, mainTask);
-}
-// 任务
-function mainTask(){...}
-```
+此项目是为了通过爬虫爬下数据，并通过 vercel node serverless 将其部署到 vercel 上
 
-origin string 可选
-"zhihu" 、 "163" 、"readhub" 切换源
+## 接口说明
 
-重新部署
+`api`：等同于 `api?origin=zhihu`，爬知乎的[每天60秒读懂世界](https://www.zhihu.com/people/mt36501)  
+
+`api/163`：等同于`api?origin=163`，爬网易的[365资讯简报](https://www.163.com/dy/media/T1603594732083.html)
+
+`api/readhub`：等同于`api?origin=readhub`：爬 readhub 的 [每日早报](https://readhub.cn/daily)
