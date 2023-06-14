@@ -1,16 +1,42 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import fetchNews from "../news/zhihu";
-// import { fetchNews as fetchReadhubNews } from "../news/readhub.js";
-// import { fetchNews as fetch163News } from "../news/163.js";
+import { fetchZhihuNews } from "../news/zhihu";
+import { fetchReadhubNews } from "../news/readhub";
+import { fetch163News } from "../news/163";
+
+// http://localhost:3000/api?origin=zhihu
+// http://localhost:3000/api?origin=163
+// http://localhost:3000/api?origin=readhub
 
 export default async function handler(
   request: VercelRequest,
   response: VercelResponse
 ) {
-  const { weiyu, news_list, all_list } = await fetchNews();
-  // const { news_list: readhubNewList } = await fetchReadhubNews();
-  // const { news_list: readhubNewList } = await fetch163News();
-
+  const { origin = "zhihu" } = request.query;
+  console.log("origin", origin);
+  let weiyu: any, news_list: any, all_list: any;
+  switch (origin) {
+    case "zhihu":
+      const zhihuResult = await fetchZhihuNews();
+      weiyu = zhihuResult.weiyu;
+      news_list = zhihuResult.news_list;
+      all_list = zhihuResult.all_list;
+      break;
+    case "163":
+      const wangyiResult = await fetch163News();
+      weiyu = wangyiResult.weiyu;
+      news_list = wangyiResult.news_list;
+      all_list = wangyiResult.all_list;
+      break;
+    case "readhub":
+      console.log("readhub");
+      const readhubResult: any = await fetchReadhubNews();
+      console.log("readhubResult", readhubResult);
+      weiyu = readhubResult.weiyu;
+      news_list = readhubResult.news_list;
+      all_list = readhubResult.all_list;
+      break;
+  }
+  // console.log("111", all_list);
   return response.send({
     code: 200,
     time: new Date().getTime(),
@@ -18,16 +44,8 @@ export default async function handler(
       title: all_list[0],
       date: all_list[1],
       news: news_list,
-      weiyu,
+      weiyu: weiyu,
     },
     all_data: all_list,
   });
 }
-
-// // 定时任务，每天早上6点更新一次，每天8点钟发送到企业微信中
-// //
-// // function crontab() {
-// //   schedule.scheduleJob(`00 00 18 * * *`, mainTask);
-// // }
-// // 任务
-// // function mainTask(){...}

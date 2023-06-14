@@ -14,11 +14,12 @@ export async function fetchReadhubNews() {
       // console.log(title);
       news_list.push(i + "、" + title);
     });
-    console.log("news_list", news_list);
-    return news_list;
+    const all_list = ["在这里，每天60秒读懂世界！", new Date(), ...news_list];
+    const weiyu = "【微语】万物之中 希望至美";
+    return { weiyu, news_list, all_list };
   } catch (error) {
     console.error(error);
   }
 }
 
-fetchReadhubNews();
+// fetchReadhubNews();

@@ -2,7 +2,7 @@ import axios from "axios";
 import cheerio from "cheerio";
 
 // 知乎 新闻60s  API
-async function fetchNews(): Promise<any> {
+export async function fetchZhihuNews(): Promise<any> {
   try {
     let result = await axios.get(
       "https://www.zhihu.com/api/v4/columns/c_1261258401923026944/items"
@@ -33,4 +33,3 @@ async function fetchNews(): Promise<any> {
 }
 
 // fetchNews();
-export default fetchNews;

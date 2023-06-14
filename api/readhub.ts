@@ -5,17 +5,17 @@ export default async function handler(
   request: VercelRequest,
   response: VercelResponse
 ) {
-  const news_list = await fetchReadhubNews();
+  const { weiyu, news_list, all_list }: any = await fetchReadhubNews();
 
   return response.send({
     code: 200,
     time: new Date().getTime(),
     data: {
-      title: "在这里，每天60秒读懂世界！",
-      date: new Date(),
+      title: all_list[0],
+      date: all_list[1],
       news: news_list,
-      weiyu: "【微语】万物之中 希望至美",
+      weiyu,
     },
-    // all_data: all_list,
+    all_data: all_list,
   });
 }

@@ -23,14 +23,14 @@ export async function fetch163News(): Promise<any> {
         continue;
       }
       if (!i.includes("<") && !i.includes(">") && i !== "") {
-        i = i.replace("\u200b", "");
+        // i = i.replace("\u200b", "");
         if (i.includes("、") || i.includes(".")) {
-          console.log("new_str111", i);
-          let new_str = i.replace(".", "、");
+          // console.log("new_str111", i);
+          let new_str = i.replace(". ", "、");
           news_list.push(new_str);
         }
         if (i.includes("微语")) {
-          console.log("微语", i);
+          // console.log("微语", i);
           weiyu = i;
         }
         all_list.push(i);
